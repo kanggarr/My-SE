@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -30,17 +36,17 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
         child: Container(
-          margin: EdgeInsets.only(top: 250),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.only(top: 250),
+          decoration: const BoxDecoration(
             color: Colors.white,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               // ไม่มีรูป Flutter Logo ในนี้
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'อีเมล',
                   filled: true,
                   fillColor: Color.fromARGB(255, 246, 246, 247),
@@ -51,10 +57,10 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'รหัสผ่าน',
                   filled: true,
                   fillColor: Color.fromARGB(
@@ -67,9 +73,10 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               ElevatedButton(
-                child: Text(
+                // ignore: sort_child_properties_last
+                child: const Text(
                   'ลงชื่อเข้าใช้',
                   style: TextStyle(
                     fontSize: 16.0,
@@ -77,36 +84,38 @@ class LoginScreen extends StatelessWidget {
                 ),
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
+                  // ignore: deprecated_member_use
                   primary: const Color.fromARGB(255, 70, 70, 122),
+                  // ignore: deprecated_member_use
                   onPrimary: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                 ),
               ),
               TextButton(
-                child: Text(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black,
+                ),
+                child: const Text(
                   'ลืมรหัสผ่าน',
                   style: TextStyle(
                     fontSize: 16.0,
                   ),
                 ),
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                ),
               ),
               TextButton(
-                child: Text(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black,
+                ),
+                child: const Text(
                   'หากคุณยังไม่มีบัญชีของเรา? สร้างบัญชี',
                   style: TextStyle(
                     fontSize: 16.0,
                   ),
-                ),
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
                 ),
               ),
             ],
