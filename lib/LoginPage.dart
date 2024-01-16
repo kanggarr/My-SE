@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           // image: DecorationImage(
           //   image: AssetImage(
@@ -77,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               Container(
+                width: 350,
                 child: TextFormField(
                   obscureText:
                       _obscureText,
@@ -101,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               ElevatedButton(
                 child: const Text(
                   'ลงชื่อเข้าใช้',
@@ -120,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                       const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                 ),
               ),
+              const SizedBox(height: 15),
               TextButton(
                 onPressed: () {},
                 style: TextButton.styleFrom(
