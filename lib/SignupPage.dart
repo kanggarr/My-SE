@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/LoginPage.dart';
+import 'package:flutter_application_1/Privacy.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -10,7 +11,8 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   bool _obscureText = true;
-  bool _obscureConfirmText = true; 
+  bool _obscureConfirmText = true;
+  bool _isTextPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +71,18 @@ class _SignupPageState extends State<SignupPage> {
                 Container(
                   width: 350,
                   child: TextFormField(
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'อีเมล',
                       filled: true,
                       fillColor: Color.fromARGB(255, 246, 246, 247),
                       labelStyle: TextStyle(
                         fontSize: 16.0,
                         color: Color.fromARGB(255, 50, 52, 61),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: () {
+                        },
                       ),
                     ),
                   ),
@@ -85,7 +92,7 @@ class _SignupPageState extends State<SignupPage> {
                   width: 350,
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      labelText: 'เบอร์โทรศัพท์',
+                      labelText: 'OTP',
                       filled: true,
                       fillColor: Colors.white,
                       labelStyle: TextStyle(
@@ -94,11 +101,13 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color.fromARGB(255, 228, 228, 231), width: 1),
+                            color: Color.fromARGB(255, 228, 228, 231),
+                            width: 1),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color.fromARGB(255, 228, 228, 231), width: 1),
+                            color: Color.fromARGB(255, 228, 228, 231),
+                            width: 1),
                       ),
                     ),
                   ),
@@ -117,7 +126,9 @@ class _SignupPageState extends State<SignupPage> {
                         color: Color.fromARGB(255, 50, 52, 61),
                       ),
                       suffixIcon: IconButton(
-                        icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+                        icon: Icon(_obscureText
+                            ? Icons.visibility_off
+                            : Icons.visibility),
                         onPressed: () {
                           setState(() {
                             _obscureText = !_obscureText;
@@ -141,7 +152,9 @@ class _SignupPageState extends State<SignupPage> {
                         color: Color.fromARGB(255, 50, 52, 61),
                       ),
                       suffixIcon: IconButton(
-                        icon: Icon(_obscureConfirmText ? Icons.visibility_off : Icons.visibility),
+                        icon: Icon(_obscureConfirmText
+                            ? Icons.visibility_off
+                            : Icons.visibility),
                         onPressed: () {
                           setState(() {
                             _obscureConfirmText = !_obscureConfirmText;
@@ -155,31 +168,48 @@ class _SignupPageState extends State<SignupPage> {
                 ElevatedButton(
                   child: const Text(
                     'สมัครเข้าใช้งาน',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
+                    style: TextStyle(fontSize: 16.0),
                   ),
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color.fromARGB(255, 70, 70, 122),
-                    onPrimary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Privacy()),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed))
+                          return const Color(0xFF383866);
+                        return const Color(0xFF46467A);
+                      },
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.only(top: 20),
                   child: GestureDetector(
+                    onTapDown: (_) => setState(() => _isTextPressed = true),
+                    onTapUp: (_) => setState(() => _isTextPressed = false),
                     onTap: () {
+                      setState(() => _isTextPressed = false);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
                     child: RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         style: TextStyle(
                           fontSize: 16.0,
                           color: Colors.black,
@@ -188,7 +218,12 @@ class _SignupPageState extends State<SignupPage> {
                           TextSpan(text: 'มีบัญชีผู้ใช้งานอยู่แล้ว '),
                           TextSpan(
                             text: 'ลงชื่อเข้าใช้',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              decoration: _isTextPressed
+                                  ? TextDecoration.underline
+                                  : TextDecoration.none,
+                            ),
                           ),
                         ],
                       ),

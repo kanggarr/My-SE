@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/SignupPage.dart';
 
@@ -11,6 +10,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
+  bool _isTextPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +18,6 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          // image: DecorationImage(
-          //   image: AssetImage(
-          //       "assets/images/Saly-13.png"),
-          //   fit: BoxFit.cover,
-          // ),
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
@@ -80,8 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 350,
                 child: TextFormField(
-                  obscureText:
-                      _obscureText,
+                  obscureText: _obscureText,
                   decoration: InputDecoration(
                     labelText: 'รหัสผ่าน',
                     filled: true,
@@ -107,19 +101,27 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                 child: const Text(
                   'ลงชื่อเข้าใช้',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                  ),
+                  style: TextStyle(fontSize: 16.0),
                 ),
                 onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: const Color.fromARGB(255, 70, 70, 122),
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed))
+                        return const Color(0xFF383866);
+                      return const Color(0xFF46467A);
+                    },
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                  ),
                 ),
               ),
               const SizedBox(height: 15),
@@ -139,14 +141,19 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: EdgeInsets.only(top: 40),
                 child: GestureDetector(
+                  onTapDown: (_) =>
+                      setState(() => _isTextPressed = true), 
+                  onTapUp: (_) =>
+                      setState(() => _isTextPressed = false), 
                   onTap: () {
+                    setState(() => _isTextPressed = false); 
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SignupPage()),
                     );
                   },
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       style: TextStyle(
                         fontSize: 16.0,
                         color: Colors.black,
@@ -155,7 +162,12 @@ class _LoginPageState extends State<LoginPage> {
                         TextSpan(text: 'หากคุณยังไม่มีบัญชีของเรา? '),
                         TextSpan(
                           text: 'สร้างบัญชี',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: _isTextPressed 
+                                ? TextDecoration.underline
+                                : TextDecoration.none,
+                          ),
                         ),
                       ],
                     ),
