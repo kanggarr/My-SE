@@ -71,7 +71,7 @@ class _PrivacyState extends State<Privacy> {
               ),
               SizedBox(height: 10),
               CheckboxListTile(
-                title: Text('ยินยอม'),
+                title: Text('อ่านและยอมรับเงื่อนไขทั้งหมด'),
                 value: _isAgreed,
                 onChanged: (bool? value) {
                   setState(() {

@@ -12,6 +12,9 @@ class _SignUp1State extends State<SignUp1> {
   String? _selectedLevel;
 
   final List<String> _educationLevels = [
+    'มัธยมศึกษาปีที่ 1',
+    'มัธยมศึกษาปีที่ 2',
+    'มัธยมศึกษาปีที่ 3',
     'มัธยมศึกษาปีที่ 4',
     'มัธยมศึกษาปีที่ 5',
     'มัธยมศึกษาปีที่ 6',

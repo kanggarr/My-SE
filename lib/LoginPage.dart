@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+// import 'dart:ui';
+import 'dart:convert';
 import 'package:flutter_application_1/SignupPage.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,8 +13,33 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   bool _obscureText = true;
   bool _isTextPressed = false;
+
+  // void sendMessage(String message) {
+  //   print(message);
+  //   _emailController.clear();
+  //   _passwordController.clear();
+  // }
+
+  Future<void> login(String email, String password) async {
+  var url = Uri.parse('http://10.0.2.2:3000/api/users/login');
+  var response = await http.post(url, body: {
+    'email': email,
+    'password': password,
+  });
+
+  if (response.statusCode == 200) {
+    var data = json.decode(response.body);
+    print("Login successful: $data");
+  } else {
+    print("Login failed: ${response.body}");
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 350,
                 child: TextFormField(
+                  controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'อีเมล',
                     filled: true,
@@ -75,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 350,
                 child: TextFormField(
+                  controller: _passwordController,
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     labelText: 'รหัสผ่าน',
@@ -103,7 +134,9 @@ class _LoginPageState extends State<LoginPage> {
                   'ลงชื่อเข้าใช้',
                   style: TextStyle(fontSize: 16.0),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  login(_emailController.text, _passwordController.text);
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {

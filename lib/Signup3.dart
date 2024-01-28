@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/LoginPage.dart';
 
 class SignUp3 extends StatefulWidget {
   const SignUp3({super.key});
@@ -93,10 +94,10 @@ class __SignUp3State extends State<SignUp3> {
                   ),
                   onPressed: () {
                     if (_selectedSchool != null) {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => SignUp3()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
                     }
                   },
                   style: ButtonStyle(
