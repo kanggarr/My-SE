@@ -26,11 +26,17 @@ class _LoginPageState extends State<LoginPage> {
   // }
 
   Future<void> login(String email, String password) async {
-  var url = Uri.parse('http://10.0.2.2:3000/api/users/login');
-  var response = await http.post(url, body: {
-    'email': email,
-    'password': password,
-  });
+    Map<String, dynamic> request = {
+      'email': email,
+      'password': password,
+    };
+    print(request);
+    final url = Uri.parse('http://192.168.1.165:3001/api/users/login');
+    final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'}, // Set the content type
+    body: json.encode(request), // Encode the request as JSON string
+  );
 
   if (response.statusCode == 200) {
     var data = json.decode(response.body);
