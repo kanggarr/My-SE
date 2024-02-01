@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import 'dart:ui';
 import 'dart:convert';
 import 'package:flutter_application_1/SignupPage.dart';
 
@@ -19,23 +18,17 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
   bool _isTextPressed = false;
 
-  // void sendMessage(String message) {
-  //   print(message);
-  //   _emailController.clear();
-  //   _passwordController.clear();
-  // }
-
   Future<void> login(String email, String password) async {
     Map<String, dynamic> request = {
       'email': email,
       'password': password,
     };
     print(request);
-    final url = Uri.parse('http://192.168.1.165:3001/api/users/login');
+    final url = Uri.parse('http://10.17.154.10:3001/api/users/login');
     final response = await http.post(
     url,
-    headers: {'Content-Type': 'application/json'}, // Set the content type
-    body: json.encode(request), // Encode the request as JSON string
+    headers: {'Content-Type': 'application/json'}, 
+    body: json.encode(request), 
   );
 
   if (response.statusCode == 200) {
@@ -45,7 +38,6 @@ class _LoginPageState extends State<LoginPage> {
     print("Login failed: ${response.body}");
   }
 }
-
 
   @override
   Widget build(BuildContext context) {

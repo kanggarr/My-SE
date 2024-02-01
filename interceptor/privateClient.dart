@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrivateClient {
-  final String _baseURL = "http://localhost:3000/api/user";
+  final String _baseURL = "http://10.17.154.10:3000/api/user";
 
   Future<http.Response> _sendRequest(String endpoint, {Map<String, String>? params, Object? body}) async {
     final url = Uri.parse(_baseURL + endpoint).replace(queryParameters: params);

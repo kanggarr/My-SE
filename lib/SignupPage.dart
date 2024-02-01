@@ -23,7 +23,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _otpController = TextEditingController();
 
   Future<void> requestOTP(String email) async {
-    var url = Uri.parse('http://192.168.1.165:3001/api/users/register/emailOTP');
+    var url = Uri.parse('http://10.17.154.10:3001/api/users/register/emailOTP');
     var response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -39,7 +39,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Future<void> registerUser(String username, String email, String password, String otp) async {
-    var url = Uri.parse('http://192.168.1.165:3001/api/users/register');
+    var url = Uri.parse('http://10.17.154.10:3001/api/users/register');
     var response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
